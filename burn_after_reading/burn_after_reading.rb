@@ -1,3 +1,5 @@
+## type top secret messages in the terminal ##
+
 STDOUT.sync = true
 
 def move_to(x, y)
