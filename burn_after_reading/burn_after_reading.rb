@@ -44,6 +44,7 @@ begin
   # clear screen
   print "\e[2J"
 
+  # number of rows, number of columns of terminal window
   t_height, t_width = `stty size`.split.map(&:to_i)
 
   x = 1
