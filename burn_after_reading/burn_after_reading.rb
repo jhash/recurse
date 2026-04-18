@@ -18,7 +18,8 @@ FIRE_CHARS = (FIRE_FADE_IN_CHARS + FIRE_FADE_OUT_CHARS).freeze
 def burn_char(x, y)
   Thread.new do
     FIRE_CHARS.each do |f_char|
-      sleep 1
+      # minimum of .5 seconds sleep, max of 2
+      sleep(0.5 + (rand * 1.5))
       print_char(x, y, f_char)
     end
 
@@ -50,18 +51,28 @@ begin
   x = 1
   y = 1
 
+  # get input from the user
   while (char = STDIN.getc)
-    break if char == "\u0003" # ctrl-c
+    # exit if ctrl-c
+    break if char == "\u0003"
 
+    # print at location so we can burn at location
     print_char(x, y, char)
+
+    # burn at location
     burn_char(x,y)
+
+    # move our own cursor
     x += 1
+
+    # reset to 1, y + 1 if past number of columns
     if x > t_width
       x = 1
+      # go to the next row
       y += 1
+      # reset to 1, 1 if past number of rows
       y = 1 if y > t_height
     end
-    sleep 0.1
   end
 
 ensure
